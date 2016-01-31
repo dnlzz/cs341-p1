@@ -9,6 +9,9 @@
 
 using namespace std;
 
+/**
+	Each enum value represents a different state in the DFA.
+*/
 enum State {
 	START,
 	INQ1,
@@ -41,14 +44,20 @@ void analyzeStr(string s) {
 		{
 		case START:
 			cout << "q" << state << endl;
+			//Check to see if we are starting in S1 or S2
 			if (s[i] == 'w') {
 				state = INQ1;
+			} else {
+				//We are not in S1, we are hopefully in S2
+				state = INQ6;
 			}
 			break;
 		case INQ1:
 			cout << "q" << state << endl;
 			if (s[i] == 'w') {
 				state = INQ2;
+			} else {
+				state = INQ5;
 			}
 			break;
 		case INQ2:
@@ -65,22 +74,66 @@ void analyzeStr(string s) {
 			break;
 		case INQ4:
 			cout << "www." << endl;
+			cout << "Accept S1";
 			break;
 		case INQ5:
+			cout << "Trap State." << endl;
 			break;
 		case INQ6:
+			cout << "q" << state << endl;
+			if (s[i] == '.') {
+				state = INQ7;
+			}
 			break;
 		case INQ7:
+			cout << "q" << state << endl;
+			if (s[i] == 'c') {
+				state = INQ8;
+			}
 			break;
 		case INQ8:
+			cout << "q" << state << endl;
+			if (s[i] == 'o') {
+				state = INQ9;
+			} else if (s[i] == 'n') {
+				state = INQ14;
+			}
 			break;
 		case INQ9:
+			cout << "q" << state << endl;
+			if (s[i] == 'm') {
+				state = INQ10;
+			} else if (s[i] == '.') {
+				state = INQ11;
+			}
 			break;
+		//this case may not be necessary for the given test cases...
 		case INQ10:
+			cout << "q" << state << endl;
+			if (isalpha(s[i])) {
+				state = INQ5; //letters after .com
+			}
 			break;
 		case INQ11:
+			cout << "q" << state << endl;
+			if (s[i] == 'c') {
+				state = INQ12;
+			}
 			break;
-		case INTRAP:
+		case INQ12:
+			cout << "q" << state << endl;
+			if (s[i] == 'n') {
+				state = INQ13;
+			}
+			break;
+		case INQ13:
+			cout << "Accept." << endl;
+			cout << ".co.cn" << endl;
+			break;			
+
+		case INQ14:
+			cout << "Accept." << endl;
+			cout << ".cn" << endl;
 			break;
 		default:
 			break;
