@@ -11,9 +11,17 @@ using namespace std;
 
 enum State {
 	START,
-	INS1,
-	INS2,
-	INS3,
+	INQ1,
+	INQ2,
+	INQ3,
+	INQ4,
+	INQ5,
+	INQ6,
+	INQ7,
+	INQ8,
+	INQ9,
+	INQ10,
+	INQ11,
 	INTRAP
 };
 
@@ -28,26 +36,51 @@ void analyzeStr(string s) {
 	lex.clear();	//or this
 
 	for (int i = 0; i < s.length(); i++) {
-		cout << s[i] << endl;
+		//cout << s[i] << endl;
 		switch (state)
 		{
 		case START:
-			cout << state << endl;
+			cout << "q" << state << endl;
 			if (s[i] == 'w') {
-				state = INS1;
+				state = INQ1;
 			}
 			break;
-		case INS1:
-			cout << state << endl;
+		case INQ1:
+			cout << "q" << state << endl;
+			if (s[i] == 'w') {
+				state = INQ2;
+			}
 			break;
-		case INS2:
-			cout << state << endl;
+		case INQ2:
+			cout << "q" << state << endl;
+			if (s[i] == 'w') {
+				state = INQ3;
+			}
 			break;
-		case INS3:
-			cout << state << endl;
+		case INQ3:
+			cout << "q" << state << endl;
+			if (s[i] == '.') {
+				state = INQ4;
+			}
+			break;
+		case INQ4:
+			cout << "www." << endl;
+			break;
+		case INQ5:
+			break;
+		case INQ6:
+			break;
+		case INQ7:
+			break;
+		case INQ8:
+			break;
+		case INQ9:
+			break;
+		case INQ10:
+			break;
+		case INQ11:
 			break;
 		case INTRAP:
-			cout << state << endl;
 			break;
 		default:
 			break;
