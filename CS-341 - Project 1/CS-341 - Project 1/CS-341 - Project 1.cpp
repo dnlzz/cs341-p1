@@ -22,8 +22,36 @@ enum State {
 	@param s the input string to test 
 */
 void analyzeStr(string s) {
+
+	State state = START;
+	string lex;		//possibly do not need this
+	lex.clear();	//or this
+
 	for (int i = 0; i < s.length(); i++) {
 		cout << s[i] << endl;
+		switch (state)
+		{
+		case START:
+			cout << state << endl;
+			if (s[i] == 'w') {
+				state = INS1;
+			}
+			break;
+		case INS1:
+			cout << state << endl;
+			break;
+		case INS2:
+			cout << state << endl;
+			break;
+		case INS3:
+			cout << state << endl;
+			break;
+		case INTRAP:
+			cout << state << endl;
+			break;
+		default:
+			break;
+		}
 	}
 
 };
