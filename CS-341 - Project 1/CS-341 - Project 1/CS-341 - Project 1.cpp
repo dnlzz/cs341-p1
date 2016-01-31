@@ -17,9 +17,15 @@ enum State {
 	INTRAP
 };
 
-string analyzeStr(string s) {
-	cout << s.length() << endl;
-	return 0;
+/**
+	Prints the state of each character per the DFA.
+	@param s the input string to test 
+*/
+void analyzeStr(string s) {
+	for (int i = 0; i < s.length(); i++) {
+		cout << s[i] << endl;
+	}
+
 };
 
 int main()
@@ -28,6 +34,7 @@ int main()
 	string str;
 	char go;
 
+	//Check to see if the user wants to enter a string to test.
 	cin >> go;
 	if (go == 'y') {
 		cin >> str;
