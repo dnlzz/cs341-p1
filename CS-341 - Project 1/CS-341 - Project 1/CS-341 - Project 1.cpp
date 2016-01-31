@@ -1,7 +1,6 @@
 // CS-341 - Project 1.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
 #include "stdlib.h"
 #include <iostream>
 #include <cctype>
@@ -25,6 +24,9 @@ enum State {
 	INQ9,
 	INQ10,
 	INQ11,
+	INQ12,
+	INQ13,
+	INQ14,
 	INTRAP
 };
 
@@ -32,8 +34,8 @@ enum State {
 	Prints the state of each character per the DFA.
 	@param s the input string to test 
 */
-void analyzeStr(string s) {
-
+string analyzeStr(string s) {
+	string verdict = "Reject.";
 	State state = START;
 	string lex;		//possibly do not need this
 	lex.clear();	//or this
@@ -47,9 +49,12 @@ void analyzeStr(string s) {
 			//Check to see if we are starting in S1 or S2
 			if (s[i] == 'w') {
 				state = INQ1;
+			} else if (s[i] == '.') {
+				state = INQ7;
 			} else {
 				//We are not in S1, we are hopefully in S2
-				state = INQ6;
+				//TO DO handling single letter (ie test case #3)
+				state = START;
 			}
 			break;
 		case INQ1:
@@ -64,17 +69,21 @@ void analyzeStr(string s) {
 			cout << "q" << state << endl;
 			if (s[i] == 'w') {
 				state = INQ3;
+			} else {
+				state = INQ5;
 			}
 			break;
 		case INQ3:
 			cout << "q" << state << endl;
 			if (s[i] == '.') {
 				state = INQ4;
+			} else {
+				state = INQ5;
 			}
 			break;
+		//Successfully found 'www.'
 		case INQ4:
-			cout << "www." << endl;
-			cout << "Accept S1";
+			state = START;
 			break;
 		case INQ5:
 			cout << "Trap State." << endl;
@@ -83,6 +92,8 @@ void analyzeStr(string s) {
 			cout << "q" << state << endl;
 			if (s[i] == '.') {
 				state = INQ7;
+			} else {
+				state = INQ6;
 			}
 			break;
 		case INQ7:
@@ -96,12 +107,18 @@ void analyzeStr(string s) {
 			if (s[i] == 'o') {
 				state = INQ9;
 			} else if (s[i] == 'n') {
+				cout << "Accept." << endl;
+				cout << ".cn" << endl;
+				verdict = "Accept";
 				state = INQ14;
 			}
 			break;
 		case INQ9:
 			cout << "q" << state << endl;
 			if (s[i] == 'm') {
+				cout << "Accept." << endl;
+				cout << ".com" << endl;
+				verdict = "Accept";
 				state = INQ10;
 			} else if (s[i] == '.') {
 				state = INQ11;
@@ -110,8 +127,13 @@ void analyzeStr(string s) {
 		//this case may not be necessary for the given test cases...
 		case INQ10:
 			cout << "q" << state << endl;
+			cout << "INQ10" << endl;
 			if (isalpha(s[i])) {
 				state = INQ5; //letters after .com
+			} else {
+			cout << "Accept." << endl;
+			cout << ".com" << endl;
+			verdict = "Accept";
 			}
 			break;
 		case INQ11:
@@ -123,6 +145,9 @@ void analyzeStr(string s) {
 		case INQ12:
 			cout << "q" << state << endl;
 			if (s[i] == 'n') {
+				cout << "Accept." << endl;
+				cout << ".co.cn" << endl;
+				verdict = "Accept";
 				state = INQ13;
 			}
 			break;
@@ -140,6 +165,8 @@ void analyzeStr(string s) {
 		}
 	}
 
+return verdict;
+
 };
 
 int main()
@@ -150,16 +177,12 @@ int main()
 
 	//Check to see if the user wants to enter a string to test.
 	cin >> go;
-	if (go == 'y') {
+	while (go == 'y') {
 		cin >> str;
 		cout << str << endl;
-		while (!done) {
-			analyzeStr(str);
-			done = true;
-		}
-	}
-	else {
-		cout << "Terminated.";
+		cout << "Verdict:  " << analyzeStr(str) << endl;
+
+		cin >> go;
 	}
 
 	return 0;
