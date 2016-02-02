@@ -48,66 +48,147 @@ string analyzeStr(string s) {
 		switch(state) {
 			case START:
 			cout << "q" << state << endl;
+			if (s[i] == 'w') {
+				state = INQ1;
+			} else {
+				state = INQ14;
+			}
 			break;
 
 			case INQ1:
 			cout << "q" << state << endl;
+			if (s[i] == 'w') {
+				state = INQ2;
+			} else {
+				state = INQ14;
+			}
 			break;
 
 			case INQ2:
 			cout << "q" << state << endl;
+			if (s[i] == 'w') {
+				state = INQ3;
+			} else {
+				state = INQ14;
+			}			
 			break;
 
 			case INQ3:
+			if (s[i] == '.') {
+				state = INQ4;
+			} else {
+				state = INQ13;
+			}
 			cout << "q" << state << endl;
 			break;
 
 			case INQ4:
 			cout << "q" << state << endl;
+			if (s[i] == 'c') {
+				state = INQ15;
+			} else if (s[i] == '.') {
+				state = INQ5;
+			} 
+			else {
+				state = INQ13;
+			}
 			break;
 
 			case INQ5:
 			cout << "q" << state << endl;
+			if (s[i] == 'c') {
+				state = INQ6;
+			} else {
+				state = INTRAP;
+			}
 			break;
 
 			case INQ6:
 			cout << "q" << state << endl;
+			if (s[i] == 'o') {
+				state = INQ7;
+			} else if (s[i] == 'n') {
+				state = INQ9;
+			} 
+			else {
+				state = INTRAP;
+			}
 			break;
 
 			case INQ7:
 			cout << "q" << state << endl;
+			if (s[i] == 'm') {
+				state = INQ8;
+			} else if (s[i] == '.') {
+				state = INQ10;
+			} else {
+				state = INQ13;
+			}
 			break;
 
 			case INQ8:
 			cout << "q" << state << endl;
+			//Accept state as long as there is no more input.
+			//if s[i] is alpha - reject, else accept...?
 			break;
 
 			case INQ9:
 			cout << "q" << state << endl;
+			//Accept state as long as there is no more input.
+			//if s[i] is alpha - reject, else accept...?
 			break;
 
 			case INQ10:
 			cout << "q" << state << endl;
+			if (s[i] == 'c') {
+				state = INQ11;
+			} else {
+				state = INTRAP;
+			}
 			break;
 
 			case INQ11:
 			cout << "q" << state << endl;
+			if (s[i] == 'n') {
+				state = INQ12;
+			} else {
+				state = INTRAP;
+			}
 			break;
 
 			case INQ12:
 			cout << "q" << state << endl;
+			//Accept state as long as there is no more input.
+			//if s[i] is alpha - reject, else accept...?
 			break;
 
 			case INQ13:
 			cout << "q" << state << endl;
+			if (s[i] == '.') {
+				state = INQ5;
+			} else {
+				state = INQ13;
+			}
 			break;
 
 			case INQ14:
 			cout << "q" << state << endl;
+			if (s[i] == '.') {
+				state = INQ5;
+			} else {
+				state = INQ14;
+			}
 			break;
 
 			case INQ15:
 			cout << "q" << state << endl;
+			if (s[i] == 'o') {
+				state = INQ16;
+			} else if (s[i] == 'n') {
+				state = INQ18;
+			} else {
+				state = INTRAP;
+			}
 			break;
 
 			case INQ16:
@@ -120,6 +201,9 @@ string analyzeStr(string s) {
 
 			case INQ18:
 			cout << "q" << state << endl;
+			//Accept state as long as there is no more input.
+			//if s[i] is alpha - state = INQ13, else accept...?
+			//
 			break;
 
 			case INQ19:
