@@ -13,20 +13,24 @@ using namespace std;
 */
 enum State {
 	START,
-	INQ1,
-	INQ2,
-	INQ3,
-	INQ4,
-	INQ5,
-	INQ6,
-	INQ7,
-	INQ8,
-	INQ9,
-	INQ10,
-	INQ11,
-	INQ12,
-	INQ13,
-	INQ14,
+	INQ1,	//W
+	INQ2,	//WW
+	INQ3,	//WWW
+	INQ4,	//WWW.
+	INQ5,	//.
+	INQ6,	//.C
+	INQ7,	//.CO
+	INQ8,	//.COM
+	INQ9,	//.CN
+	INQ10,	//.CO.
+	INQ11,	//.CO.C
+	INQ12,	//.CO.CN
+	INQ13,	//WWW.*.COM
+	INQ14,	//*.com / *.cn / *co.cn
+	INQ15,	//WWW.C
+	INQ16,	//WWW.CO
+	INQ17,	//WWW.COM
+	INQ18,	//WWW.CN
 	INTRAP
 };
 
@@ -41,6 +45,94 @@ string analyzeStr(string s) {
 	lex.clear();	//or this
 
 	for (int i = 0; i < s.length(); i++) {
+		switch(state) {
+			case START:
+			cout << "q" << state << endl;
+			break;
+
+			case INQ1:
+			cout << "q" << state << endl;
+			break;
+
+			case INQ2:
+			cout << "q" << state << endl;
+			break;
+
+			case INQ3:
+			cout << "q" << state << endl;
+			break;
+
+			case INQ4:
+			cout << "q" << state << endl;
+			break;
+
+			case INQ5:
+			cout << "q" << state << endl;
+			break;
+
+			case INQ6:
+			cout << "q" << state << endl;
+			break;
+
+			case INQ7:
+			cout << "q" << state << endl;
+			break;
+
+			case INQ8:
+			cout << "q" << state << endl;
+			break;
+
+			case INQ9:
+			cout << "q" << state << endl;
+			break;
+
+			case INQ10:
+			cout << "q" << state << endl;
+			break;
+
+			case INQ11:
+			cout << "q" << state << endl;
+			break;
+
+			case INQ12:
+			cout << "q" << state << endl;
+			break;
+
+			case INQ13:
+			cout << "q" << state << endl;
+			break;
+
+			case INQ14:
+			cout << "q" << state << endl;
+			break;
+
+			case INQ15:
+			cout << "q" << state << endl;
+			break;
+
+			case INQ16:
+			cout << "q" << state << endl;
+			break;
+
+			case INQ17:
+			cout << "q" << state << endl;
+			break;
+
+			case INQ18:
+			cout << "q" << state << endl;
+			break;
+
+			case INQ19:
+			cout << "q" << state << endl;
+			break;
+
+			case INTRAP:
+			cout << "q" << state << endl;
+			break;
+		}
+	}
+
+	/*for (int i = 0; i < s.length(); i++) {
 		//cout << s[i] << endl;
 		switch (state)
 		{
@@ -163,7 +255,7 @@ string analyzeStr(string s) {
 		default:
 			break;
 		}
-	}
+	}*/
 
 return verdict;
 
