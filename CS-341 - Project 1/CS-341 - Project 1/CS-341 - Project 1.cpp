@@ -193,10 +193,26 @@ string analyzeStr(string s) {
 
 			case INQ16:
 			cout << "q" << state << endl;
+			verdict = "Accept";
+			if (s[i] == 'm') {
+				state = INQ17;
+			} else if (s[i] == '.') {
+				state = INQ5;
+			} else {
+				state = INQ13;
+				verdict = "Reject";
+			}
 			break;
 
 			case INQ17:
 			cout << "q" << state << endl;
+			verdict = "Accept";
+			if (s[i] == 'm') {
+				state = INQ5;
+			} else {
+				state = INQ13;
+				verdict = "Reject";
+			}
 			break;
 
 			case INQ18:
@@ -204,6 +220,13 @@ string analyzeStr(string s) {
 			//Accept state as long as there is no more input.
 			//if s[i] is alpha - state = INQ13, else accept...?
 			//
+			verdict = "Accept";
+			if (s[i] == '.') {
+				state = INQ5;
+			} else {
+				state = INQ13;
+				verdict = "Reject";
+			}
 			break;
 
 			case INQ19:
@@ -211,7 +234,7 @@ string analyzeStr(string s) {
 			break;
 
 			case INTRAP:
-			cout << "q" << state << endl;
+			cout << "INTRAP" << state << endl;
 			break;
 		}
 	}
