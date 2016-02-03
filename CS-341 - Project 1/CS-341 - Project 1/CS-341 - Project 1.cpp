@@ -27,25 +27,26 @@ enum State {
 	INQ11,	//.CO.C
 	INQ12,	//.CO.CN
 	INQ13,	//WWW.*.COM
-	INQ14,	//*.com / *.cn / *co.cn
+	INQ14,	//*.com   ||   *.cn   ||   *co.cn
 	INQ15,	//WWW.C
 	INQ16,	//WWW.CO
 	INQ17,	//WWW.COM
 	INQ18,	//WWW.CN
-	INQ19,	//W.	     WW.
-	INQ20,	//W.C        WW.C
-	INQ21,	//W.CN       WW.CN
-	INQ22,	//W.CO       WW.CO
-	INQ23,	//W.CO.      WW.CO.
-	INQ24,	//W.CO.C     WW.CO.C
-	INQ25,	//W.CO.CN    WW.CO.CN
-	INQ26,	//W.COM      WW.COM
+	INQ19,	//W.	   ||   WW.
+	INQ20,	//W.C      ||   WW.C
+	INQ21,	//W.CN     ||   WW.CN
+	INQ22,	//W.CO     ||   WW.CO
+	INQ23,	//W.CO.    ||   WW.CO.
+	INQ24,	//W.CO.C   ||   WW.CO.C
+	INQ25,	//W.CO.CN  ||   WW.CO.CN
+	INQ26,	//W.COM    ||   WW.COM
 	INTRAP	//TRAP STATE
 };
 
 /**
 	Prints the state of each character per the DFA.
-	@param s the input string to test 
+	@param s the input string to test
+	@return verdict whether or not the DFA accepts or rejects the string 
 */
 string analyzeStr(string s) {
 	string verdict = "Reject.";
@@ -53,7 +54,10 @@ string analyzeStr(string s) {
 
 	for (int i = 0; i <= s.length(); i++) {
 		switch(state) {
+			//Starting state of all strings
 			case START:
+			//We need to check if the string starts with
+			//'www' or any other characters.
 			cout << "q" << state << endl;
 			if (s[i] == 'w') {
 				state = INQ1;
@@ -63,6 +67,8 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ1:
+			//We may read a '.' before we reach the third 'w'
+			//so we need to take that into account
 			cout << "q" << state << endl;
 			if (s[i] == 'w') {
 				state = INQ2;
@@ -74,6 +80,8 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ2:
+			//We may read a '.' before we reach the third 'w'
+			//so we need to take that into account
 			cout << "q" << state << endl;
 			if (s[i] == 'w') {
 				state = INQ3;
@@ -85,6 +93,8 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ3:
+			//We need to check if we have read in www. (S1)
+			//or something else, starting with www (S2)
 			cout << "q" << state << endl;
 			if (s[i] == '.') {
 				state = INQ4;
@@ -94,6 +104,7 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ4:
+			//We need to check if (S2) starts with 'co', 'cn' or 'com'
 			cout << "q" << state << endl;
 			if (s[i] == 'c') {
 				state = INQ15;
@@ -106,6 +117,8 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ5:
+			//We have reached the start of the (S3) portion of the string
+			//We need to determine how it ends
 			cout << "q" << state << endl;
 			if (s[i] == 'c') {
 				state = INQ6;
@@ -115,6 +128,10 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ6:
+			//String can end in cn, co.cn or com
+			//We need to check which we are dealing with
+			//Strings ending in anything other than the above
+			//are sent to the trap state because they will always be rejected
 			cout << "q" << state << endl;
 			if (s[i] == 'o') {
 				state = INQ7;
@@ -127,39 +144,46 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ7:
+			//String can end in cn, co.cn or com
+			//We need to check which we are dealing with
+			//Strings ending in anything other than the above
+			//are sent to the trap state because they will always be rejected
 			cout << "q" << state << endl;
 			if (s[i] == 'm') {
 				state = INQ8;
 			} else if (s[i] == '.') {
 				state = INQ10;
-			} /*else {
-				state = INQ13;
-			}*/
+			} else {
+				state = INTRAP;
+			}
 			break;
 
 			case INQ8:
+			//This is an accepting state as long as we are at the
+			//end of a string. Any additional characters will
+			//cause the string to be rejected.
 			cout << "q" << state << endl;
 			verdict = "Accept";
 			if (s[i]) {
 				verdict = "Reject";
 				state = INTRAP;
 			}
-			//Accept state as long as there is no more input.
-			//if s[i] is alpha - reject, else accept...?
 			break;
 
 			case INQ9:
+			//This is an accepting state as long as we are at the
+			//end of a string. Any additional characters will
+			//cause the string to be rejected.
 			cout << "q" << state << endl;
 			verdict = "Accept";
 			if (s[i]) {
 				verdict = "Reject";
 				state = INTRAP;
 			}
-			//Accept state as long as there is no more input.
-			//if s[i] is alpha - reject, else accept...?
 			break;
 
 			case INQ10:
+			//We need to make sure the string ends in co.cn
 			cout << "q" << state << endl;
 			if (s[i] == 'c') {
 				state = INQ11;
@@ -169,6 +193,7 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ11:
+			//We need to make sure the string ends in co.cn
 			cout << "q" << state << endl;
 			if (s[i] == 'n') {
 				state = INQ12;
@@ -178,17 +203,20 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ12:
+			//This is an accepting state as long as we are at the
+			//end of a string. Any additional characters will
+			//cause the string to be rejected.
 			cout << "q" << state << endl;
 			verdict = "Accept";
 			if (s[i]) {
 				verdict = "Reject";
 				state = INTRAP;
 			}
-			//Accept state as long as there is no more input.
-			//if s[i] is alpha - reject, else accept...?
 			break;
 
 			case INQ13:
+			//This state satisfies the (S2) portion of the language
+			//such that it is a symbol followed by zero or more symbols
 			cout << "q" << state << endl;
 			verdict = "Reject";
 			if (s[i] == '.') {
@@ -199,6 +227,7 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ14:
+			//This state accounts for strings starting without 'www.'
 			cout << "q" << state << endl;
 			if (s[i] == '.') {
 				state = INQ5;
@@ -208,6 +237,8 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ15:
+			//We can have strings that start with 'www.' and followed by
+			//words starting with c that belong to (S2) and not (S3)
 			cout << "q" << state << endl;
 			if (s[i] == 'o') {
 				state = INQ16;
@@ -221,6 +252,8 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ16:
+			//We can have strings that start with 'www.' and followed by
+			//words starting with c that belong to (S2) and not (S3
 			cout << "q" << state << endl;
 			if (s[i] == 'm') {
 				state = INQ17;
@@ -233,6 +266,9 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ17:
+			//This is an accepting state as long as we are at the
+			//end of a string. Any additional characters will
+			//cause the string to be rejected.
 			cout << "q" << state << endl;
 			verdict = "Accept";
 			if (s[i]) {
@@ -246,10 +282,10 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ18:
+			//This is an accepting state as long as we are at the
+			//end of a string. Any additional characters will
+			//cause the string to be rejected.
 			cout << "q" << state << endl;
-			//Accept state as long as there is no more input.
-			//if s[i] is alpha - state = INQ13, else accept...?
-			//
 			verdict = "Accept";
 			if (s[i] == '.') {
 				state = INQ5;
@@ -260,6 +296,8 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ19:
+			//We have reached the start of the (S3) portion of the string
+			//We need to determine how it ends
 			cout << "q" << state << endl;
 			if (s[i] == 'c') {
 				state = INQ20;
@@ -269,6 +307,8 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ20:
+			//We have reached the start of the (S3) portion of the string
+			//We need to determine how it ends
 			cout << "q" << state << endl;
 			if (s[i] == 'o') {
 				state = INQ21;
@@ -281,39 +321,43 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ21:
+			//We have reached the start of the (S3) portion of the string
+			//We need to determine how it ends
 			cout << "q" << state << endl;
 			if (s[i] == 'm') {
 				state = INQ22;
 			} else if (s[i] == '.') {
 				state = INQ24;
-			} /*else {
-				state = INQ13;
-			}*/
+			}
 			break;
 
 			case INQ22:
+			//This is an accepting state as long as we are at the
+			//end of a string. Any additional characters will
+			//cause the string to be rejected.
 			cout << "q" << state << endl;
 			verdict = "Accept";
 			if (s[i]) {
 				verdict = "Reject";
 				state = INTRAP;
 			}
-			//Accept state as long as there is no more input.
-			//if s[i] is alpha - reject, else accept...?
 			break;
 
 			case INQ23:
+			//This is an accepting state as long as we are at the
+			//end of a string. Any additional characters will
+			//cause the string to be rejected.
 			cout << "q" << state << endl;
 			verdict = "Accept";
 			if (s[i]) {
 				verdict = "Reject";
 				state = INTRAP;
 			}
-			//Accept state as long as there is no more input.
-			//if s[i] is alpha - reject, else accept...?
 			break;
 
 			case INQ24:
+			//We have reached the start of the (S3) portion of the string
+			//We need to determine how it ends
 			cout << "q" << state << endl;
 			if (s[i] == 'c') {
 				state = INQ25;
@@ -323,6 +367,8 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ25:
+			//We have reached the start of the (S3) portion of the string
+			//We need to determine how it ends
 			cout << "q" << state << endl;
 			if (s[i] == 'n') {
 				state = INQ26;
@@ -332,17 +378,20 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ26:
+			//This is an accepting state as long as we are at the
+			//end of a string. Any additional characters will
+			//cause the string to be rejected.
 			cout << "q" << state << endl;
 			verdict = "Accept";
 			if (s[i]) {
 				verdict = "Reject";
 				state = INTRAP;
 			}
-			//Accept state as long as there is no more input.
-			//if s[i] is alpha - reject, else accept...?
 			break;
 
 			case INTRAP:
+			//We find ourselves here when something has gone terribly, terribly wrong.
+			//Or the machine will always reject a string...
 			cout << "IN TRAP STATE" << endl;
 			break;
 
