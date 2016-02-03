@@ -44,7 +44,7 @@ string analyzeStr(string s) {
 	string lex;		//possibly do not need this
 	lex.clear();	//or this
 
-	for (int i = 0; i < s.length(); i++) {
+	for (int i = 0; i <= s.length(); i++) {
 		switch(state) {
 			case START:
 			cout << "q" << state << endl;
@@ -74,12 +74,12 @@ string analyzeStr(string s) {
 			break;
 
 			case INQ3:
+			cout << "q" << state << endl;
 			if (s[i] == '.') {
 				state = INQ4;
 			} else {
 				state = INQ13;
 			}
-			cout << "q" << state << endl;
 			break;
 
 			case INQ4:
@@ -119,6 +119,7 @@ string analyzeStr(string s) {
 			cout << "q" << state << endl;
 			if (s[i] == 'm') {
 				state = INQ8;
+				verdict = "Accept";
 			} else if (s[i] == '.') {
 				state = INQ10;
 			} else {
@@ -128,12 +129,14 @@ string analyzeStr(string s) {
 
 			case INQ8:
 			cout << "q" << state << endl;
+			verdict = "Accept";
 			//Accept state as long as there is no more input.
 			//if s[i] is alpha - reject, else accept...?
 			break;
 
 			case INQ9:
 			cout << "q" << state << endl;
+			verdict = "Accept";
 			//Accept state as long as there is no more input.
 			//if s[i] is alpha - reject, else accept...?
 			break;
@@ -158,6 +161,7 @@ string analyzeStr(string s) {
 
 			case INQ12:
 			cout << "q" << state << endl;
+			verdict = "Accept";
 			//Accept state as long as there is no more input.
 			//if s[i] is alpha - reject, else accept...?
 			break;
@@ -196,6 +200,7 @@ string analyzeStr(string s) {
 			verdict = "Accept";
 			if (s[i] == 'm') {
 				state = INQ17;
+				verdict = "Accept";
 			} else if (s[i] == '.') {
 				state = INQ5;
 			} else {
@@ -207,7 +212,7 @@ string analyzeStr(string s) {
 			case INQ17:
 			cout << "q" << state << endl;
 			verdict = "Accept";
-			if (s[i] == 'm') {
+			if (s[i] == '.') {
 				state = INQ5;
 			} else {
 				state = INQ13;
@@ -227,10 +232,6 @@ string analyzeStr(string s) {
 				state = INQ13;
 				verdict = "Reject";
 			}
-			break;
-
-			case INQ19:
-			cout << "q" << state << endl;
 			break;
 
 			case INTRAP:
