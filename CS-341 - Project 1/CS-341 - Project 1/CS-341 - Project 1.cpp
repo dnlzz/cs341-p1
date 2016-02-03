@@ -259,10 +259,6 @@ string analyzeStr(string s) {
 			}
 			break;
 
-			case INTRAP:
-			cout << "INTRAP" << state << endl;
-			break;
-
 			case INQ19:
 			cout << "q" << state << endl;
 			if (s[i] == 'c') {
@@ -346,6 +342,10 @@ string analyzeStr(string s) {
 			//if s[i] is alpha - reject, else accept...?
 			break;
 
+			case INTRAP:
+			cout << "IN TRAP STATE" << endl;
+			break;
+
 		}
 	}
 
@@ -358,13 +358,15 @@ int main()
 	bool done = false;
 	string str;
 	char go;
-	ifstream infile("C:\\Users\\Pedeco-\\Desktop\\prog1test.txt");
+	ifstream infile("prog1test.txt");
 
 	//Check to see if the user wants to enter a string to test.
 
 	while (infile >> go >> str) {
+		cout << "---------------------" << endl;
 		cout << str << endl;
 		cout << "Verdict:  " << analyzeStr(str) << endl;
+		cout << "---------------------" << endl << endl;
 	}
 
 	return 0;
