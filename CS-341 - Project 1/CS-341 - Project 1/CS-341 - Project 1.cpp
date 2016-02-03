@@ -31,6 +31,14 @@ enum State {
 	INQ16,	//WWW.CO
 	INQ17,	//WWW.COM
 	INQ18,	//WWW.CN
+	INQ19,	//W.	     WW.
+	INQ20,	//W.C        WW.C
+	INQ21,	//W.CN       WW.CN
+	INQ22,	//W.CO       WW.CO
+	INQ23,	//W.CO.      WW.CO.
+	INQ24,	//W.CO.C     WW.CO.C
+	INQ25,	//W.CO.CN    WW.CO.CN
+	INQ26,	//W.COM      WW.COM
 	INTRAP	//TRAP STATE
 };
 
@@ -57,6 +65,8 @@ string analyzeStr(string s) {
 			cout << "q" << state << endl;
 			if (s[i] == 'w') {
 				state = INQ2;
+			} else if (s[i] == '.') {
+				state = INQ19;
 			} else {
 				state = INQ14;
 			}
@@ -66,6 +76,8 @@ string analyzeStr(string s) {
 			cout << "q" << state << endl;
 			if (s[i] == 'w') {
 				state = INQ3;
+			} else if (s[i] == '.') {
+				state = INQ19;
 			} else {
 				state = INQ14;
 			}			
@@ -127,7 +139,7 @@ string analyzeStr(string s) {
 			case INQ8:
 			cout << "q" << state << endl;
 			verdict = "Accept";
-			if (isalpha(s[i])) {
+			if (s[i]) {
 				verdict = "Reject";
 				state = INTRAP;
 			}
@@ -138,7 +150,7 @@ string analyzeStr(string s) {
 			case INQ9:
 			cout << "q" << state << endl;
 			verdict = "Accept";
-			if (isalpha(s[i])) {
+			if (s[i]) {
 				verdict = "Reject";
 				state = INTRAP;
 			}
@@ -167,7 +179,7 @@ string analyzeStr(string s) {
 			case INQ12:
 			cout << "q" << state << endl;
 			verdict = "Accept";
-			if (isalpha(s[i])) {
+			if (s[i]) {
 				verdict = "Reject";
 				state = INTRAP;
 			}
@@ -249,6 +261,90 @@ string analyzeStr(string s) {
 			case INTRAP:
 			cout << "INTRAP" << state << endl;
 			break;
+
+			case INQ19:
+			cout << "q" << state << endl;
+			if (s[i] == 'c') {
+				state = INQ20;
+			} else {
+				state = INTRAP;
+			}
+			break;
+
+			case INQ20:
+			cout << "q" << state << endl;
+			if (s[i] == 'o') {
+				state = INQ21;
+			} else if (s[i] == 'n') {
+				state = INQ23;
+			} 
+			else {
+				state = INTRAP;
+			}
+			break;
+
+			case INQ21:
+			cout << "q" << state << endl;
+			if (s[i] == 'm') {
+				state = INQ22;
+			} else if (s[i] == '.') {
+				state = INQ24;
+			} /*else {
+				state = INQ13;
+			}*/
+			break;
+
+			case INQ22:
+			cout << "q" << state << endl;
+			verdict = "Accept";
+			if (s[i]) {
+				verdict = "Reject";
+				state = INTRAP;
+			}
+			//Accept state as long as there is no more input.
+			//if s[i] is alpha - reject, else accept...?
+			break;
+
+			case INQ23:
+			cout << "q" << state << endl;
+			verdict = "Accept";
+			if (s[i]) {
+				verdict = "Reject";
+				state = INTRAP;
+			}
+			//Accept state as long as there is no more input.
+			//if s[i] is alpha - reject, else accept...?
+			break;
+
+			case INQ24:
+			cout << "q" << state << endl;
+			if (s[i] == 'c') {
+				state = INQ25;
+			} else {
+				state = INTRAP;
+			}
+			break;
+
+			case INQ25:
+			cout << "q" << state << endl;
+			if (s[i] == 'n') {
+				state = INQ26;
+			} else {
+				state = INTRAP;
+			}
+			break;
+
+			case INQ26:
+			cout << "q" << state << endl;
+			verdict = "Accept";
+			if (s[i]) {
+				verdict = "Reject";
+				state = INTRAP;
+			}
+			//Accept state as long as there is no more input.
+			//if s[i] is alpha - reject, else accept...?
+			break;
+
 		}
 	}
 
