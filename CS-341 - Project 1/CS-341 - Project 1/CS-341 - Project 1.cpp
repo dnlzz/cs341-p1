@@ -73,7 +73,7 @@ string analyzeStr(string s) {
 			if (s[i] == 'w') {
 				state = INQ2;
 			} else if (s[i] == '.') {
-				state = INQ19;
+				state = INQ5;
 			} else {
 				state = INQ14;
 			}
@@ -86,7 +86,7 @@ string analyzeStr(string s) {
 			if (s[i] == 'w') {
 				state = INQ3;
 			} else if (s[i] == '.') {
-				state = INQ19;
+				state = INQ5;
 			} else {
 				state = INQ14;
 			}			
@@ -294,7 +294,7 @@ string analyzeStr(string s) {
 				state = INQ13;
 			}
 			break;
-
+/*
 			case INQ19:
 			//We have reached the start of the (S3) portion of the string
 			//We need to determine how it ends
@@ -388,7 +388,7 @@ string analyzeStr(string s) {
 				state = INTRAP;
 			}
 			break;
-
+*/
 			case INTRAP:
 			//We find ourselves here when something has gone terribly, terribly wrong.
 			//Or the machine will always reject a string...
