@@ -310,6 +310,7 @@ int main()
 	bool done = false;
 	string str;
 	char go;
+/*
 	ifstream infile("prog1test.txt");
 
 	while (infile >> go >> str) {
@@ -318,6 +319,29 @@ int main()
 		cout << "Verdict:  " << analyzeStr(str) << endl;
 		cout << "---------------------" << endl << endl;
 	}
+*/
+	//Check to see if the user wants to enter a string to test.
+	cout << "Do you want to enter a string? (y/n)  ";
+	cin >> go;
+	cout << endl;
+	while (!done) {
+		if (go == 'y') {
+			cout << "Sting to test:  ";
+			cin >> str;
+			cout << "---------------------" << endl;
+			cout << str << endl;
+			cout << "Verdict:  " << analyzeStr(str) << endl;
+			cout << "---------------------" << endl;
+			cout << "Again? (y/n)  ";
+			cin >> go;
+			cout << endl;
+		} else {
+			done = true;
+		}
+	}
+	//else {
+	//	cout << "Terminated.";
+	//}
 
 	return 0;
 }
