@@ -1,5 +1,9 @@
-// CS-341 - Project 1.cpp : Defines the entry point for the console application.
-//
+/*
+Anthony Degliomini
+CS-341-452
+Project 1
+Prof. Nakayama
+*/
 
 #include "stdlib.h"
 #include <iostream>
@@ -32,14 +36,6 @@ enum State {
 	INQ16,	//WWW.CO
 	INQ17,	//WWW.COM
 	INQ18,	//WWW.CN
-	INQ19,	//W.	   ||   WW.
-	INQ20,	//W.C      ||   WW.C
-	INQ21,	//W.CN     ||   WW.CN
-	INQ22,	//W.CO     ||   WW.CO
-	INQ23,	//W.CO.    ||   WW.CO.
-	INQ24,	//W.CO.C   ||   WW.CO.C
-	INQ25,	//W.CO.CN  ||   WW.CO.CN
-	INQ26,	//W.COM    ||   WW.COM
 	INTRAP	//TRAP STATE
 };
 
@@ -294,101 +290,7 @@ string analyzeStr(string s) {
 				state = INQ13;
 			}
 			break;
-/*
-			case INQ19:
-			//We have reached the start of the (S3) portion of the string
-			//We need to determine how it ends
-			cout << "q" << state << endl;
-			if (s[i] == 'c') {
-				state = INQ20;
-			} else {
-				state = INTRAP;
-			}
-			break;
 
-			case INQ20:
-			//We have reached the start of the (S3) portion of the string
-			//We need to determine how it ends
-			cout << "q" << state << endl;
-			if (s[i] == 'o') {
-				state = INQ21;
-			} else if (s[i] == 'n') {
-				state = INQ23;
-			} 
-			else {
-				state = INTRAP;
-			}
-			break;
-
-			case INQ21:
-			//We have reached the start of the (S3) portion of the string
-			//We need to determine how it ends
-			cout << "q" << state << endl;
-			if (s[i] == 'm') {
-				state = INQ22;
-			} else if (s[i] == '.') {
-				state = INQ24;
-			}
-			break;
-
-			case INQ22:
-			//This is an accepting state as long as we are at the
-			//end of a string. Any additional characters will
-			//cause the string to be rejected.
-			cout << "q" << state << endl;
-			verdict = "Accept";
-			if (s[i]) {
-				verdict = "Reject";
-				state = INTRAP;
-			}
-			break;
-
-			case INQ23:
-			//This is an accepting state as long as we are at the
-			//end of a string. Any additional characters will
-			//cause the string to be rejected.
-			cout << "q" << state << endl;
-			verdict = "Accept";
-			if (s[i]) {
-				verdict = "Reject";
-				state = INTRAP;
-			}
-			break;
-
-			case INQ24:
-			//We have reached the start of the (S3) portion of the string
-			//We need to determine how it ends
-			cout << "q" << state << endl;
-			if (s[i] == 'c') {
-				state = INQ25;
-			} else {
-				state = INTRAP;
-			}
-			break;
-
-			case INQ25:
-			//We have reached the start of the (S3) portion of the string
-			//We need to determine how it ends
-			cout << "q" << state << endl;
-			if (s[i] == 'n') {
-				state = INQ26;
-			} else {
-				state = INTRAP;
-			}
-			break;
-
-			case INQ26:
-			//This is an accepting state as long as we are at the
-			//end of a string. Any additional characters will
-			//cause the string to be rejected.
-			cout << "q" << state << endl;
-			verdict = "Accept";
-			if (s[i]) {
-				verdict = "Reject";
-				state = INTRAP;
-			}
-			break;
-*/
 			case INTRAP:
 			//We find ourselves here when something has gone terribly, terribly wrong.
 			//Or the machine will always reject a string...
@@ -408,8 +310,6 @@ int main()
 	string str;
 	char go;
 	ifstream infile("prog1test.txt");
-
-	//Check to see if the user wants to enter a string to test.
 
 	while (infile >> go >> str) {
 		cout << "---------------------" << endl;
